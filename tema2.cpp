@@ -206,38 +206,85 @@ void Display1() {
 }
 
 void Display2() {
-	//TODO: xmax si ymax
+   float a = 0.2;
 
-	double pi = 4 * atan(1.0);
-	double ratio = 0.05;
-	double a = 0.3, b = 0.2;
-	double xmax = pi + ratio;
+   glColor3f(1, 0.1, 0.1);
+   glBegin(GL_LINE_STRIP);
+   
+   for(double theta = -1 * M_PI / 2; theta <= M_PI / 2; theta += 0.01) {
+      if (abs(theta) == M_PI/6)
+         continue;
+      glVertex2f(a / (4*cos(theta)*cos(theta) - 3), (a * tan(theta))/(4*cos(theta)*cos(theta) - 3));
+   }
 
-	glColor3f(1, 0.1, 0.1);
-	glBegin(GL_LINE_STRIP);
-	for (double t = -pi+ratio; t < pi; t += ratio) { 
-		double x = 2 * (a * cos(t) + b) * cos(t);
-		double y = 2 * (a * cos(t) + b) * sin(t);
-		glVertex2f(x, y);
-	}
-	glEnd();
-
-	glBegin(GL_LINE_STRIP);
-	double t = -pi + ratio;
-	double x = 2 * (a * cos(t) + b) * cos(t);
-	double y = 2 * (a * cos(t) + b) * sin(t);
-	glVertex2f(x, y);
-
-	t = pi - ratio;
-	x = 2 * (a * cos(t) + b) * cos(t);
-	y = 2 * (a * cos(t) + b) * sin(t);
-	glVertex2f(x, y);
-	glEnd();
+   glEnd();
 }
 
 void Display3() {
-   
+   //to do maybe?? xmax ymax, why 3*pi and -3 * pi??
+	//circumferinta cercului trigonometric = 2pi?
+
+	double pi = 4 * atan(1.0);
+	double ratia = 0.05;
+	double a = 0.1, b = 0.2;
+
+	glColor3f(1, 0.1, 0.1);
+	glBegin(GL_LINE_STRIP);
+
+	for (double t = -3*pi;t<=3*pi ; t += ratia) {
+		double x = a * t - b * sin(t);
+		double y = a - b * cos(t);
+
+		glVertex2f(x, y);
+	}
+
+	glEnd();
 }
+
+
+void Display4() {
+//done, check it for eventual revising 
+
+	double pi = 4 * atan(1.0);
+	double ratia = 0.001;
+	double a = 0.4;
+
+	glColor3f(1, 0.1, 0.1);
+	glBegin(GL_LINE_STRIP);
+	for (double t = (-pi) / 4 + ratia; t < pi / 4; t += ratia) {
+		double x1 = (a * sqrt(2 * cos(2 * t))) * cos(t);
+		double y1 = (a * sqrt(2 * cos(2 * t))) * sin(t);
+		
+		glVertex2f(x1, -y1);
+	}
+	for (double t = (-pi) / 4 + ratia; t < pi / 4; t += ratia) {
+		double x2 = (-a * sqrt(2 * cos(2 * t))) * cos(t);
+		double y2 = (-a * sqrt(2 * cos(2 * t))) * sin(t);
+		
+		glVertex2f(x2, y2);
+	}
+	glEnd();
+}
+
+
+void Display5() {
+	//am hardcodat limita maxima din for, nu cred ca e corect
+
+	double ratia = 0.05;
+	double a = 0.02;
+
+	glColor3f(1, 0.1, 0.1);
+	glBegin(GL_LINE_STRIP);
+	for (double t = ratia; t < 2.9; t += ratia) {
+		double x = a * exp(1 + t) * cos(t);
+		double y = a * exp(1 + t) * sin(t);
+
+		glVertex2f(x, y);
+	}
+	glEnd();
+}
+
+
 
 void Init(void) {
 
@@ -265,6 +312,15 @@ void Display(void) {
       break;
    case '4':
       Display2();
+      break;
+   case '5':
+      Display3();
+      break;
+   case '6':
+      Display4();
+      break;
+   case '7':
+      Display5();
       break;
    default:
       break;
